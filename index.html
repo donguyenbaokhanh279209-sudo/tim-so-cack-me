@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hoa Thơm Cỏ Thơm 20/10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#2a1420;
+    --bg-mid:#4a1f33;
+    --rose:#e8647a;
+    --rose-soft:#f3a6b6;
+    --gold:#e3b873;
+    --cream:#f6e9df;
+    --leaf:#4f7a4a;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    min-height:100%;
+    background:
+      radial-gradient(ellipse at 50% -10%, var(--bg-mid), var(--bg-deep) 60%);
+    font-family:'Be Vietnam Pro', sans-serif;
+    color:var(--cream);
+    overflow-x:hidden;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+  }
+
+  .sparkle{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+  }
+  .sparkle span{
+    position:absolute;
+    width:3px;height:3px;border-radius:50%;
+    background:var(--gold);
+    opacity:.5;
+    animation:tw 3s ease-in-out infinite;
+  }
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(1);}50%{opacity:.9;transform:scale(1.8);}}
+
+  header{
+    text-align:center;
+    padding:48px 24px 8px;
+    position:relative; z-index:2;
+  }
+  .eyebrow{
+    font-size:.78rem;
+    letter-spacing:.04em;
+    color:var(--rose-soft);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(2rem, 8vw, 3rem);
+    margin:0;
+    line-height:1.1;
+  }
+  h1 em{
+    font-style:italic;
+    color:var(--rose);
+  }
+  .sub{
+    max-width:380px;
+    margin:14px auto 0;
+    font-size:.95rem;
+    color:#e3cdd4;
+    line-height:1.5;
+  }
+
+  .stage{
+    position:relative;
+    width:min(92vw, 420px);
+    height:min(92vw, 420px);
+    margin:10px 0 4px;
+    z-index:2;
+  }
+  .heart-field{
+    position:absolute; inset:0;
+  }
+  .bud{
+    position:absolute;
+    top:50%; left:50%;
+    width:0; height:0;
+    transform:translate(-50%,-50%) scale(0);
+    opacity:0;
+    transition:transform .7s cubic-bezier(.17,.89,.32,1.28), opacity .5s ease;
+  }
+  .bud.bloom{
+    transform:translate(-50%,-50%) scale(1) rotate(var(--rot));
+    opacity:1;
+  }
+  .flower{position:relative; width:22px; height:22px;}
+  .petal{
+    position:absolute;
+    width:11px; height:15px;
+    border-radius:60% 60% 60% 60%/70% 70% 40% 40%;
+    left:5.5px; top:1px;
+    transform-origin:50% 100%;
+  }
+  .petal:nth-child(1){transform:rotate(0deg);}
+  .petal:nth-child(2){transform:rotate(72deg);}
+  .petal:nth-child(3){transform:rotate(144deg);}
+  .petal:nth-child(4){transform:rotate(216deg);}
+  .petal:nth-child(5){transform:rotate(288deg);}
+  .center{
+    position:absolute; width:7px; height:7px; border-radius:50%;
+    left:7.5px; top:7.5px; background:var(--gold);
+    box-shadow:0 0 4px rgba(227,184,115,.8);
+  }
+
+  .stem-wrap{
+    position:absolute; left:50%; bottom:-6px;
+    transform:translateX(-50%);
+    width:140px; height:60px;
+    opacity:0;
+    transition:opacity .8s ease .6s;
+  }
+  .stem-wrap.show{opacity:1;}
+  .stem-wrap svg{width:100%; height:100%;}
+
+  .cta{
+    position:relative; z-index:2;
+    margin:18px 0 8px;
+    padding:14px 34px;
+    font-family:'Be Vietnam Pro', sans-serif;
+    font-size:1rem;
+    font-weight:500;
+    letter-spacing:.01em;
+    color:var(--bg-deep);
+    background:linear-gradient(135deg, var(--rose-soft), var(--rose));
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 8px 24px -8px rgba(232,100,122,.6);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta:hover{transform:translateY(-2px); box-shadow:0 12px 28px -8px rgba(232,100,122,.7);}
+  .cta:active{transform:translateY(0);}
+  .cta:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  .cta.hide{display:none;}
+
+  .msg{
+    position:relative; z-index:2;
+    max-width:380px;
+    text-align:center;
+    margin:10px 24px 56px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .msg.show{opacity:1; transform:translateY(0);}
+  .msg .line1{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    color:#ffffff;
+    text-shadow:0 0 10px rgba(243,166,182,.9), 0 0 22px rgba(232,100,122,.6);
+    margin:0 0 10px;
+  }
+  .msg p{
+    font-size:.92rem;
+    line-height:1.7;
+    color:#ffffff;
+    text-shadow:0 0 8px rgba(243,166,182,.8), 0 0 18px rgba(232,100,122,.45);
+    margin:0 0 6px;
+  }
+  .msg .sign{
+    margin-top:16px;
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.1rem;
+    color:#ffffff;
+    text-shadow:0 0 10px rgba(243,166,182,.9), 0 0 22px rgba(232,100,122,.6);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .bud{transition:none;}
+    .bud.bloom{transform:translate(-50%,-50%) scale(1) rotate(var(--rot));}
+  }
+</style>
+</head>
+<body>
+
+<div class="sparkle" id="sparkle"></div>
+
+<header>
+  <p class="eyebrow">20 THÁNG 10</p>
+  <h1>Một bó hoa<br><em>cho Ngọc iu~</em></h1>
+  <p class="sub">Không phải hoa thật, nhưng là tất cả sự chân thành t gói vào đây. Chạm vào nút bên dưới để bó hoa nở nhé.</p>
+</header>
+
+<div class="stage">
+  <div class="heart-field" id="heartField"></div>
+</div>
+
+<button class="cta" id="ctaBtn">Chạm để bó hoa nở 🌸</button>
+
+<div class="msg" id="msg">
+  <p class="line1">Ngọc iu~, chúc mừng 20/10 nha</p>
+  <p>Khanh không giỏi nói mấy lời ngọt ngào, nên gói hết vào bó hoa này để Ngọc thấy là Khanh thật lòng. Cảm ơn vì đã luôn ở đó, dịu dàng mà cũng rất dễ thương ❤️‍🔥.</p>
+  <p>Chúc Ngọc một ngày thật vui, thật rực rỡ, và được yêu thương thật nhiều — nhất là bởi Khanh.</p>
+  <p class="sign">— Khanh, gửi bằng cả tấm lòng 💛</p>
+</div>
+
+<script>
+(function(){
+  // ambient sparkle
+  const sparkleHost = document.getElementById('sparkle');
+  for(let i=0;i<24;i++){
+    const s = document.createElement('span');
+    s.style.left = Math.random()*100+'vw';
+    s.style.top = Math.random()*100+'vh';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    sparkleHost.appendChild(s);
+  }
+
+  const colors = ['#e8647a','#f3a6b6','#f6e9df','#e3b873','#d94f68'];
+  const field = document.getElementById('heartField');
+  const stage = document.querySelector('.stage');
+  const buds = [];
+
+  function heartPoint(t){
+    const x = 16*Math.pow(Math.sin(t),3);
+    const y = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
+    return {x, y};
+  }
+
+  const size = stage.clientWidth;
+  const scale = size/40;
+  const cx = size/2, cy = size/2 - size*0.04;
+
+  const rings = [1.0, 0.92, 0.84, 0.75, 0.65, 0.54, 0.42, 0.3, 0.16];
+  const points = [];
+  rings.forEach((r, ri) => {
+    const count = Math.max(10, Math.round(70*r));
+    for(let i=0;i<count;i++){
+      const t = (i/count)*Math.PI*2 + (Math.random()-0.5)*0.06 + ri*0.17;
+      const jr = r + (Math.random()-0.5)*0.05;
+      const p = heartPoint(t);
+      points.push({x: cx + p.x*scale*jr, y: cy - p.y*scale*jr});
+    }
+  });
+  const N = points.length;
+
+  points.forEach((pt) => {
+    const px = pt.x, py = pt.y;
+
+    const bud = document.createElement('div');
+    bud.className = 'bud';
+    bud.style.setProperty('--rot', (Math.random()*360)+'deg');
+    bud.style.left = px+'px';
+    bud.style.top = py+'px';
+
+    const flower = document.createElement('div');
+    flower.className = 'flower';
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    for(let k=0;k<5;k++){
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.background = color;
+      flower.appendChild(petal);
+    }
+    const center = document.createElement('div');
+    center.className = 'center';
+    flower.appendChild(center);
+    bud.appendChild(flower);
+    field.appendChild(bud);
+    buds.push(bud);
+  });
+
+  const btn = document.getElementById('ctaBtn');
+  const msg = document.getElementById('msg');
+  let done = false;
+
+  btn.addEventListener('click', () => {
+    if(done) return;
+    done = true;
+    btn.classList.add('hide');
+    buds.forEach((b, i) => {
+      setTimeout(() => b.classList.add('bloom'), i*9);
+    });
+    setTimeout(() => msg.classList.add('show'), N*9 + 400);
+  });
+})();
+</script>
+
+</body>
+  </html>
+  
